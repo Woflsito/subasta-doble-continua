@@ -12,13 +12,18 @@ Mercado de subasta doble continua - Resultados
 
 <div id="resultsDiv" class="results-container row" style="margin-bottom: 35px" >
     <div class="result-div col-sm div_box">
-    <table id="resultsTable">
-        <tr><th>Tus activos</th><td>{{ assetsHolding }}</td></tr>
-        <tr><th>Tu dinero inicial</th><td>{{ initialCash }}</td></tr>
-        <tr><th>Tu dinero final</th><td>{{ cashHolding }}</td></tr>
-        <tr><th>Cambio en la riqueza (en %)</th><td>{{ wealthChange }}</td></tr>
-        <tr><th>Tu dividendo </th><td>{{ dividendGet }}</td></tr>
-    </table>
+        <table id="resultsTable">
+            <tr><th>Valor del Activo</th><td>{{ assetValue }}</td></tr>
+            <tr><th>Activos en Tenencia</th><td>{{ assetsHolding }}</td></tr>
+            <tr><th>Dinero Inicial</th><td>{{ initialCash }}</td></tr>
+            <tr><th>Dinero Final</th><td>{{ cashHolding }}</td></tr>
+            <tr><th>Ganancia por Dividendos</th><td>{{ profitFromDividends }}</td></tr>
+            <tr><th>Dinero Antes del Dividendo</th><td>{{ before_dividend }}</td></tr>
+            <tr><th>Dinero Después del Dividendo</th><td>{{ after_dividend }}</td></tr>
+            <tr><th>Cambio en la Riqueza (%)</th><td>{{ wealthChange }}</td></tr>
+            <tr><th>Valor del dividendo</th><td><strong>{{ dividendValue }}</strong></td></tr>
+        </table>
+        
     </div>
 </div>
 

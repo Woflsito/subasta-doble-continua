@@ -43,11 +43,7 @@ Mercado de subasta doble continua
 
                 <p><strong>Dinero disponible:</strong> <span id="cashHolding" class="float-end money-positive">{{ player.cashHolding }}</span></p>
 
-                {{ if player.allowLong }}
-                <p><strong>Límite de crédito:</strong> <span class="float-end credit-negative">{{ player.capLong }}</span></p>
-                {{ else }} {{ endif }}
-
-                <p><strong>Posibles valores de dividendos:</strong> <span class="float-end">{{ possible_dividends }}</span></p>
+                <p><strong>Posibles valores de dividendos:</strong> <span class="float-end">[{{ possible_dividends }}]</span></p>
                 {{ else }} {{ endif }}
             </div>
         </div>
