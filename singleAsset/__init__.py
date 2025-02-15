@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'sCDA'
     PLAYERS_PER_GROUP = None
     num_trial_rounds = 1
-    NUM_ROUNDS = 4  ## incl. trial periods
+    NUM_ROUNDS = 6  ## incl. trial periods
     base_payment = cu(10)
     multiplier = 90
     min_payment_in_round = cu(0)
