@@ -321,8 +321,6 @@ def store_player_financials(player: Player):
     if player.round_number == C.num_trial_rounds + 1:
         initiate_player(player)
         #print(f"\n🔄 [RESET FINANCIALS] Jugador {player.id_in_group} - Ronda {group.round_number} (Nueva fase)")
-        #print(f"  - Efectivo Inicial: {player.initialCash}, Activos Iniciales: {player.initialAssets}")
-        #print(f"  - Dividendos Reiniciados a: {player.dividendHolding}")
     elif player.round_number > 1:  # 🔴 Evitar error en la ronda 1
         # 🔵 Si no es el inicio de una nueva fase, continuar con los valores previos
         prev_player = player.in_round(player.round_number - 1)
@@ -340,7 +338,8 @@ def store_player_financials(player: Player):
         # ✅ Nuevo cálculo de dividendos obtenidos por activo
         player.dividendByAsset = player.initialDividend * player.assetsHolding
         player.cashHolding = prev_player.cashHolding + player.dividendByAsset
-
+        print(f"💰 [CASH UPDATE] Jugador {player.id_in_group} - Ronda {player.round_number}")
+        print(f"  - Dinero Final (cashHolding): {player.cashHolding:.2f}")
         if player.round_number == C.num_trial_rounds + 1:
             print("🔄 [RESET] Reiniciando valores financieros después de la prueba.")
             initiate_player(player)
@@ -439,7 +438,6 @@ def live_method(player: Player, data):
     }
 
 
-
 def calc_round_profit(player: Player):
     group = player.group
     """ Calcula la ganancia del jugador en la ronda actual. """
@@ -454,10 +452,11 @@ def calc_round_profit(player: Player):
     player.tradingProfit = round(player.tradingProfit, C.decimals)
 
     # Cambio porcentual en la riqueza
+    
     if not player.isObserver and player.isParticipating and initial_endowment != 0:
         player.wealthChange = (end_endowment - initial_endowment) / initial_endowment
     else:
-        player.wealthChange = 0
+       player.wealthChange = 0
     player.payoff = max(C.base_payment + C.multiplier * player.wealthChange, C.min_payment_in_round)
 
     #print(f"[CALC PROFIT] Jugador {player.id_in_group} - Ronda {group.round_number}")
@@ -563,7 +562,7 @@ def limit_order(player: Player, data):
             playerID=maker_id,
             group=group,
             Period=period,
-            msg='Order rejected: you are an observer who cannot place a limit order.',
+            msg='Orden rechazada: eres un observador y no puedes colocar una orden límite.',
             msgTime=round(float(time.time() - player.group.marketStartTime), C.decimals)
         )
         return
@@ -573,7 +572,7 @@ def limit_order(player: Player, data):
             playerID=maker_id,
             group=group,
             Period=period,
-            msg='Order rejected: misspecified price, volume or asset.',
+            msg='Orden rechazada: precio, volumen o activo mal especificado.',
             msgTime=round(float(time.time() - player.group.marketStartTime), C.decimals)
         )
         return
@@ -586,7 +585,7 @@ def limit_order(player: Player, data):
             playerID=maker_id,
             group=group,
             Period=period,
-            msg='Order rejected: misspecified price or volume.',
+            msg='Orden rechazada: precio o volumen mal especificado.',
             msgTime=round(float(time.time() - player.group.marketStartTime), C.decimals)
         )
         return
@@ -596,7 +595,7 @@ def limit_order(player: Player, data):
             playerID=maker_id,
             group=group,
             Period=period,
-            msg='Order rejected: insufficient cash available.',
+            msg='Orden rechazada: saldo insuficiente disponible.',
             msgTime=round(float(time.time() - player.group.marketStartTime), C.decimals)
         )
         return
@@ -608,7 +607,7 @@ def limit_order(player: Player, data):
             playerID=maker_id,
             group=group,
             Period=period,
-            msg='Order rejected: insufficient assets available.',
+            msg='Orden rechazada: activos insuficientes disponibles.',
             msgTime=round(float(time.time() - player.group.marketStartTime), C.decimals)
         )
         return
@@ -618,7 +617,7 @@ def limit_order(player: Player, data):
             playerID=maker_id,
             group=group,
             Period=period,
-            msg='Order rejected: there is a limit order with the same or a more interesting price available in the order book.',
+            msg='Orden rechazada: hay una orden límite con el mismo precio o un precio más favorable disponible en el libro de órdenes',
             msgTime=round(float(time.time() - player.group.marketStartTime), C.decimals)
         )
         return
@@ -1239,8 +1238,8 @@ class PreMarket(Page):
             allowShort=player.allowShort,
             capShort=player.capShort,
             capLong=player.capLong,
-            cashHolding=player.cashHolding,
-            dividendHolding=player.dividendHolding,  # Aquí se está enviando solo el nuevo dividendo
+            cashHolding=round(player.cashHolding, C.decimals),
+            dividendHolding=round(player.dividendHolding, C.decimals),  # Aquí se está enviando solo el nuevo dividendo
         )
     
 
@@ -1319,23 +1318,8 @@ class ResultsWaitPage(WaitPage):
     @staticmethod
     def after_all_players_arrive(group: Group):
         players = group.get_players()
-
-        print(f"[RESULTS WAIT PAGE] Ronda {group.round_number} - Calculando beneficios")
-        
         for p in players:
-            print(f"Jugador {p.id_in_group} antes de calcular ganancias:")
-            print(f"  - Efectivo: {p.cashHolding}")
-            print(f"  - Activos: {p.assetsHolding}")
-            print(f"  - Dividendos acumulados: {p.dividendHolding}")
-            calc_round_profit(player=p)
-
-            print(f"Jugador {p.id_in_group} después de calcular ganancias:")
-            print(f"  - Efectivo: {p.cashHolding}")
-            print(f"  - Activos: {p.assetsHolding}")
-            print(f"  - Dividendos acumulados: {p.dividendHolding}")
-            print(f"  - Ganancia en la ronda: {p.tradingProfit}")
-            print(f"  - Cambio de riqueza: {p.wealthChange}")
-
+            calc_round_profit(p)  # Calcula la ganancia de cada jugador      
         # Solo calcular el pago final si es la última ronda
         if group.round_number == C.NUM_ROUNDS:
             for p in players:
@@ -1353,11 +1337,15 @@ class Results(Page):
     def vars_for_template(player: Player):
         return dict(
             assetValue=round(player.assetValue, C.decimals),
-            initialEndowment=round(player.initialEndowment, C.decimals),
-            endEndowment=round(player.endEndowment, C.decimals),
+            assetsHolding=round(player.assetsHolding, C.decimals),
+            initialCash=round(player.initialCash, C.decimals),
+            cashHolding=round(player.cashHolding, C.decimals),
             tradingProfit=round(player.tradingProfit, C.decimals),
-            wealthChange=round(player.wealthChange*100, C.decimals),
+            wealthChange=round(player.wealthChange, C.decimals),
             payoff=cu(round(player.payoff, C.decimals)),
+            dividendGet=round(player.initialDividend, C.decimals),
+            dividendsInRound=round(player.dividendByAsset, C.decimals),
+
         )
 
     @staticmethod

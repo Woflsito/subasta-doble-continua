@@ -36,10 +36,11 @@ Mercado de subasta doble continua - Información previa al mercado
 
             <p><strong>Dinero disponible:</strong> <span class="float-end money-positive">S/. {{ player.cashHolding }}</span></p>
 
+            <!--
             {{ if player.allowLong }}
             <p><strong>Límite de crédito:</strong> <span class="float-end credit-negative">S/. {{ player.capLong }}</span></p>
             {{ else }} {{ endif }}
-
+-->
             <p><strong>Posibles valores de dividendos:</strong> <span class="float-end">{{ possible_dividends }}</span></p>
             {{ else }} {{ endif }}
         </div>

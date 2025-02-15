@@ -39,8 +39,82 @@
 }
 
 /**/ 
-/* Permitir que solo el tbody haga scroll */
+/* table de verde */
+/* Título del mensaje */
+.message-title-transaction {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #3d2b00; /* Marrón más oscuro */
+    margin-bottom: 10px;
+}
+
+#trades_container{
+    display: table-row-group;
+}
+
+
+/* table de verde de las trnasacciones */
+
+.table_box_transaction {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent; /* Evita el fondo blanco */
+}
+
+
+.table_box_transaction td {
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.table_box_transaction {
+    background: #d4edda; /* Verde claro más suave */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: table-row-group;
+
+}
+
+.table_box_transaction h4 {
+    text-align: center;
+    font-size: 18px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Ocultar la tabla si no hay transacciones */
+#tradesTable:empty {
+    display: table-row-group;
+}
 
 
 
+/* PARTE DE MENSAJES*/ 
 
+/* Título del mensaje */
+.message-title-news {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #3d2b00; /* Marrón más oscuro */
+    margin-bottom: 10px;
+}
+
+.table_box_newstable {
+    background: #fff3cd; /* Amarillo claro */
+    border-left: 5px solid #ff9800; /* Borde naranja para destacar */
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #3d2b00; /* Marrón más oscuro */
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 80%;
+    margin: 10px auto;
+}
+
+
+/* OJO table_box afecta a Volumen Precio table*/ 

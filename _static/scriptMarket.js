@@ -38,9 +38,9 @@ function showNews(msg) {
 
 function trade_desc(seller_id) {
     if(seller_id == my_id) {
-        return 'You sold '
+        return 'Tu vendiste '
     } else {
-        return 'You bought '
+        return 'Tu compraste '
     }
 }
 
