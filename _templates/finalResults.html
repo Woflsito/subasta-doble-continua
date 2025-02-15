@@ -1,0 +1,30 @@
+{{ block title }}
+    Resultado
+{{ endblock }}
+
+{{ block global_styles }}
+        <link rel="stylesheet" href="{{ static 'styleResults.css' }}">
+{{ endblock }}
+
+{{ block content }}
+
+    <p>Gracias por participar en este experimento.</p>
+
+    <p>>En este experimento, recibes {{ payoff }} que es tu pago del período n.º {{ player.selectedRound }}.</p>
+<br>
+
+<h5>>Detalles del Período</h5>
+<table id="periodPayoffTable" align="center">
+    <tr><th style="padding:0 0px 0 15px;">Período</th><th style="padding:0 0px 0 15px;">Ingreso del período</th><th style="padding:0 0px 0 15px;">Ganancia de negociación (profit)</th><th style="padding:0 0px 0 15px;">Cambio de riqueza (en %)</th></tr>
+    {{ for p in periodPayoff }}
+        <tr>
+            {{ for e in p }}
+                <td align="right">{{ e }}</td>
+            {{ endfor }}
+        </tr>
+    {{ endfor }}
+</table>
+
+{{ endblock }}
+
+

@@ -1,0 +1,89 @@
+<h3><strong>Dotación de efectivo y activos al inicio del período</strong></h3>
+<p>
+    Al comienzo de cada período de negociación, todos los comerciantes reciben entre {{ C.num_assets}} activos, así como una cierta cantidad de euros para poder realizar transacciones (compras y ventas de activos). 
+    <!-- Tenga en cuenta que las dotaciones de activos y euros se determinan nuevamente al inicio de cada período y NO se trasladan al siguiente período de negociación </p>.-->
+
+<!--
+<h3>Límite de crédito</h3>
+<p>
+    Además de la dotación inicial de efectivo al comienzo del período de negociación, cada comerciante recibe un límite de crédito equivalente al monto de la dotación inicial en euros.
+    Esto significa que cada comerciante puede usar todos los euros para comprar activos y, además, puede adquirir activos utilizando el límite de crédito (mostrado como un saldo de efectivo negativo).
+    </p>-->
+<!-- 
+<h3>Venta en corto de activos</h3>
+<p>
+    De manera similar a las tenencias de efectivo (cash holdings), al comienzo del período de negociación, a cada comerciante se le otorga una dotación de activos para ventas en corto equivalente al tamaño de la dotación inicial de activos.
+    Esto significa que cada comerciante puede vender todos sus activos y, además, puede vender activos hasta el límite de venta en corto (mostrado como tenencias de activos negativas).
+    
+</p>-->
+
+<h3><strong>Cálculo de su pago como comerciante</strong></h3>
+<p>
+    Como comerciante, su pago en euros se basa en los ingresos del período.
+    Para calcular el ingreso de un período, la riqueza inicial (initial wealth) se determina multiplicando su dotación inicial de activos(initial asset endowment) por el valor de recompra (buyback value) y sumando la dotación inicial de efectivo(initial endowment of cash).
+    Como siguiente paso, se determina su riqueza final (final wealth).
+    Para la riqueza final (final wealth), se utilizan las tenencias de activos y efectivo (asset and cash holdings) al final del período.
+    Este enfoque también se aplica en caso de tenencias negativas de activos o de moneda (taler) al final del período.
+    En otras palabras, para el cálculo de la riqueza final (final wealth), las tenencias negativas de la moneda taler se compensan con el valor de los activos (value of the assets), y las tenencias negativas de activos se compensan con las tenencias de efectivo (cash holdings).
+</p>
+
+<p>
+    Cambio de riqueza (%) = (riqueza final − riqueza inicial) / (riqueza inicial)</p>
+<p> 
+    El cambio porcentual de riqueza se multiplica por {{ C.multiplier }} y se suma a un ingreso base de {{ C.base_payment }}.
+    Tenga en cuenta que el ingreso del período no puede ser inferior a 0 euros.
+    Por lo tanto, el cálculo es:
+
+</p>
+<p>
+    Ingreso del período = máx({0; {{ C.base_payment }} + cambio de riqueza · {{ C.multiplier }}})
+</p>    
+<p>
+    Ejemplo: Al final del período, tienes 60 activos y 300 talers.  
+    El valor de recompra del activo es 50.00.  
+    Por lo tanto, tu riqueza final en este período es 60 · 50.00 + 300 = 3,300.  
+    Tu dotación inicial en este período fue, por ejemplo, 50 activos y 500 talers, lo que da como resultado una riqueza inicial de 50 · 50.00 + 500 = 3,000.  
+    Esto conduce a un cambio de riqueza de (3,300−3,000)/3,000 = 10.00% y un ingreso del período de {{ C.base_payment }} + 0.1 · {{ C.multiplier }} = €34.  
+    Sin embargo, si el cambio de riqueza en el período es igual a -10.00%, el ingreso del período será {{ C.base_payment }} + −0.1 · {{ C.multiplier }} = €16.  
+</p>
+    
+
+<h3><strong>Mecanismo del mercado</strong></h3>
+<p>
+En la parte superior de la pantalla de negociación, puedes ver una cuenta regresiva que muestra el tiempo restante hasta el cierre del mercado.  
+Las transacciones solo pueden ejecutarse antes del cierre del mercado.  
+</p>
+
+<b><strong>Tu dotación y cómo interpretar tu información</strong></b>
+<p>
+    Debajo de la cuenta regresiva, puedes encontrar información sobre tu saldo actual de efectivo y activos, así como sobre tu límite de crédito y de venta en corto.  
+    En la siguiente caja, puedes encontrar información sobre los cupones.  
+    En esta caja hay una tabla que especifica tu información, es decir, el número de cupones, su valor nominal y el producto de la columna 1 y la columna 2.  
+    Solo se muestran en esta tabla los cuopnes que se te permite conocer, según tu nivel de información.  
+    Por lo tanto, la suma de los productos en la columna 3 más la suma de las monedas sobre las que no tienes información equivale al valor del frasco.  
+</p>
+
+
+<b><strong>Cómo realizar una oferta (orden límite)</strong></b>
+<p>
+    Puedes realizar una oferta para comprar activos especificando el precio de compra (bid price) y la cantidad de activos (volumen) que deseas adquirir, y usando el botón "Realizar oferta de compra".  
+    De manera similar, puedes realizar una oferta para vender activos especificando el precio de venta (ask price) y la cantidad de activos (volumen) que deseas vender, y usando el botón "Realizar oferta de venta".  
+    No puedes ofrecer más activos para comprar o vender de lo que permiten tus límites de crédito y venta en corto.  
+    En ese caso, puede ser conveniente retirar primero otra oferta menos interesante.  
+</p>
+
+
+<b><strong>Cómo aceptar una oferta (orden de mercado)</strong></b>
+<p>
+    Debajo de las cajas que te permiten realizar una orden límite, encontrarás cajas con todas las ofertas disponibles en ese momento.  
+    Todas las ofertas estarán ordenadas por precio, de modo que las mejores aparecerán en la parte superior.  
+    La mejor orden se puede aceptar seleccionando la oferta de interés, especificando la cantidad de activos que deseas vender (oferta de compra / bid price) o comprar (oferta de venta / ask price), y confirmando tu orden utilizando los botones “Aceptar venta” o “Aceptar compra”.  
+    Cuando compras activos, tu saldo en euros disminuirá en el precio multiplicado por la cantidad de activos, y tu saldo de activos aumentará en la misma cantidad.  
+    Por el contrario, cuando vendes activos, tu saldo en euros aumentará en el precio multiplicado por la cantidad de activos, y tu saldo de activos disminuirá en la misma cantidad.  
+</p>    
+
+
+<p>
+    Ten en cuenta que solo puedes aceptar ofertas de otros comerciantes, es decir, no puedes aceptar tus propias órdenes límite, las cuales están enmarcadas en color rojo.  
+    Aún puedes seleccionar tus propias órdenes límite, lo cual puede ser útil si deseas retirar una orden límite propia usando el botón "Retirar orden límite propia".  
+</p>

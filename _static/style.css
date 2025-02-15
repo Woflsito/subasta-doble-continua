@@ -1,0 +1,458 @@
+/* 🔹 Diseño General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+/* 🔹 Center the financial overview */
+.container_premarket {
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+/* 🔹 Style the financial information card */
+.financial-card-premarket {
+    background: white;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: center;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔹 Style the financial values */
+.rol {
+    color: black;
+    font-weight: bold;
+}
+
+.money-positive {
+    color: green;
+    font-weight: bold;
+}
+
+.credit-negative {
+    color: red;
+    font-weight: bold;
+}
+/*  */
+/*  */
+/* Market */
+/*  */
+/*  */
+
+
+/* Contenedor principal */
+.container {
+    max-width: 90%;
+    margin: auto;
+}
+
+/* 🔹 Improve spacing between sections */
+.card-body p {
+    margin-bottom: 10px;
+}
+
+
+/* 🔹 Sección de Ofertas (Bids & Asks) */
+/* Distribuir los elementos en filas */
+.limit_container, .market_table {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 🔹 Diseño de las cajas de compra y venta */
+.limit_bid, .limit_ask {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.limit_bid h4 {
+    color: #198754;
+}
+
+.limit_ask h4 {
+    color: #dc3545;
+}
+/* Estilo para inputs dentro de los formularios */
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+/* 🔹 Mejorar el diseño de los inputs */
+.form-control {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+/* 🔹 Asegurar que el botón ocupe todo el ancho */
+.btn {
+    font-size: 16px;
+    padding: 10px;
+}
+
+/*
+ 🔹 Tablas de Ofertas 
+.table_box {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table_box th, .table_box td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.table_box th {
+    background-color: #007bff;
+    color: white;
+}
+*/
+/* 🔹 Botones Mejorados */
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/*
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-outline-danger {
+    border-color: red;
+    color: red;
+}
+
+.btn-outline-danger:hover {
+    background-color: red;
+    color: white;
+}
+ */
+
+/* Botón de oferta de compra */
+#bidOffer, #bidAccept {
+    background-color: #198754;
+}
+
+/* Botón de oferta de venta */
+#SendOffer, #askAccept {
+    background-color: #dc3545;
+}
+
+/* Botón de retirar orden */
+#cancelBidLimit, #cancelAskLimit {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* Estilos para tablas de Bids y Asks */
+.market_bid, .market_ask {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.market_bid h4 {
+    color: #198754;
+}
+.market_ask h4 {
+    color: #dc3545;
+}
+/* Tabla dentro de los contenedores */
+.table_box {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table_box th, .table_box td {
+    padding: 8px;
+    border: 1px solid #dee2e6;
+}
+
+
+/* 🔹 Transacciones y Mensajes */
+.trades_container  {
+    background: #b2f2bb;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+.news_container
+{    background: #fff9c4;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.trades_container h4, .news_container h4 {
+    text-align: center;
+}
+
+/* 🔹 Estilo para el modal emergente */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* otro codigo */ 
+
+#endowmentDiv {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.endowment-div {
+    background: white;
+    border-radius: 15px; /* Suaviza más el borde */
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 350px; /* Ajusta el tamaño */
+}
+
+/* 🔹 Mejora la tabla dentro del div */
+#endowmentTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* 🔹 Mantiene los encabezados alineados a la izquierda */
+#endowmentTable th {
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+    padding-right: 60px; /* ⬅️ Aumenta espacio entre la columna izquierda y derecha */
+    white-space: nowrap; /* Evita que los títulos se dividan en varias líneas */
+}
+
+/* 🔹 Mantiene los valores alineados a la derecha */
+#endowmentTable td {
+    text-align: right;
+    font-weight: bold;
+    color: #222;
+    padding-left: 60px; /* ⬅️ Separa más los valores de la columna derecha */
+    white-space: nowrap; /* Evita saltos de línea */
+}
+
+/* 🔹 Mejora la tabla dentro del div */
+#endowmentTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* 🔹 Controla el ancho de las columnas */
+}
+
+/* 🔹 Mantiene los encabezados alineados a la izquierda */
+#endowmentTable th {
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+    padding-right: 20px; /* ⬅️ Espacio entre las columnas */
+    width: 60%; /* 🔹 Asigna más espacio a la primera columna */
+}
+
+/* 🔹 Mantiene los valores alineados a la derecha */
+#endowmentTable td {
+    text-align: right;
+    font-weight: bold;
+    color: #222;
+    width: 40%; /* 🔹 Asigna menos espacio a la segunda columna */
+}
+
+/* 🔹 Añade un ligero borde a cada fila */
+#endowmentTable tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* 🔹 Elimina el borde en la última fila para un diseño más limpio */
+#endowmentTable tr:last-child {
+    border-bottom: none;
+}
+
+/* 🔹 Ajusta el ancho del contenedor */
+.endowment-div {
+    background: white;
+    border-radius: 15px; /* Suaviza más el borde */
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    width: 500px; /* 🔹 Aumenta el ancho para más espacio */
+}
+
+/* 🔹 Centra mejor la tabla dentro del div */
+#endowmentDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+
+/* 🔹 Mejor estilo del botón */
+#next_button {
+    display: block;
+    width: 100px;
+    margin: auto;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#next_button:hover {
+    background-color: #0056b3;
+}
+
+/*  */
+
+
+#bidsTable tbody,
+#asksTable tbody,
+#newsTable,
+#tradesTable {
+    display: block;
+    max-height: 100px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.div_box {
+    margin-bottom: 35px;
+    text-align: center;
+    border: 2px solid lightgray;
+}
+
+.table_box {
+    margin: auto;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.small-numbers {
+    width: 65px;
+    text-align: right;
+}
+
+/* 🔹 Error message styling */
+#jsError {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/* 🔹 Market */
+
+/* 🔹 Asegurar que el contenedor ocupe toda la pantalla */
+.container-fluid {
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* 🔹 Asegurar que los bloques ocupen todo el espacio */
+.card, .div_box {
+    width: 100%;
+    min-height: 320px; /* Ajusta la altura mínima */
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔹 Ajustar las columnas en filas */
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 12px; /* Espaciado uniforme */
+}
+
+/* 🔹 Ajustar la distribución en pantallas más pequeñas */
+@media (max-width: 992px) {
+    .row {
+        justify-content: center;
+    }
+
+    .col-lg-4 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+.market_bid, .market_ask {
+    flex-grow: 1; /* Permite que crezcan proporcionalmente */
+    width: auto;
+    max-width: 100%;
+}
+
+
+.financial-card, .limit_bid, .limit_ask {
+    flex-grow: 1;
+    width: 100%; /* Permitir que ocupen todo el ancho de su contenedor */
+    max-width: 100%;
+}
+
+.financial-card {
+    border-radius: 15px;
+    margin: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.financial-card .card-body p {
+    display: flex;
+    justify-content: space-between;
+}
+/* 🔹 Corrección para asegurar que todas las columnas ocupen el mismo espacio */
+.col-lg-4 {
+    min-width: 30%; /* Controla el ancho mínimo de cada bloque */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

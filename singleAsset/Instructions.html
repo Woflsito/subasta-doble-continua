@@ -1,0 +1,70 @@
+{{ block title }}
+<p class="title-first">📜 <strong>Instrucciones del Experimento</strong></p>
+{{ endblock }}
+
+
+{{ block content }}
+<div class="container">
+
+  {{ include '_templates/instructions.html' }}
+
+  {{ include '_templates/instructionsEndowmentProfitMechanism.html' }}
+
+      <div id="continue">
+        <button id="participationButton" name="isParticipating" value=1 class="btn btn-outline-info">He leído y comprendido las instrucciones. Continuar</button>
+      </div>
+
+</div>
+<style>
+  .title-first {
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+  }
+  body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+  }
+  h1, h2, h3 {
+      color: #333;
+  }
+  p {
+      text-align: justify;
+  }
+  ol {
+      padding-left: 20px;
+  }
+  .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 95%;
+      margin: 50px auto;
+  }
+  .important {
+      font-weight: bold;
+  }
+  @media (min-width: 1024px) {
+      .container {
+          max-width: 80%;
+      }
+  }
+  @media (min-width: 1440px) {
+      .container {
+          max-width: 70%;
+      }
+  }
+  @media (min-width: 1920px) {
+      .container {
+          max-width: 60%;
+      }
+  }
+</style>
+
+
+{{ endblock }}

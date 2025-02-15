@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+    <p class="important">Estimado participante,</p>
+    <p>¡Gracias por participar en este experimento!</p>
+    <p>
+        Por favor, lea atentamente las instrucciones. Todas las afirmaciones en estas instrucciones son veraces.
+        El pago que recibirá al final del experimento depende de qué tan bien haya entendido las instrucciones.
+        Si tiene alguna pregunta, por favor levante la mano y la responderemos en privado.
+    </p>
+    <p>
+        El experimento y el análisis de los datos serán anonimizados. A partir de ahora, evite hablar con otros participantes y use únicamente las herramientas proporcionadas.
+        Si no sigue estas reglas, no recibirá el pago y será excluido de futuros experimentos.
+    </p>
+    <p>Gracias por su atención y participación.</p>
+
+    <h3><strong>Estructura del experimento</strong></h3>
+    <ol>
+        <li>Instrucciones para la pantalla de negociación</li>
+        <li>Período de prueba</li>
+        <li>Descripción de los activos que se negocian</li>
+        <li>Experimento de mercado</li>
+        <li>Revelación del valor verdadero</li>
+    </ol>
+
+    <h3><strong>Contexto del experimento</strong></h3>
+    <p>
+        Este experimento simula un mercado de activos. Usted es parte de un grupo fijo que se mantendrá sin cambios
+        durante todo el experimento. 
+    </p>
+    <p>
+        El experimento consta de <span class="important">{{ numTrials }}</span> períodos de prueba y
+        <span class="important">{{ numRounds }}</span> períodos de negociación independientes.
+    </p>
+    <p>
+        En este experimento, podrá comprar y vender valores equivalentes a cupones de comida (€2, €1, 50, 20, 10, 5, 2 y 1 céntimos).
+        Operará en una subasta doble continua, donde cada participante puede actuar como comprador y vendedor.
+        Puede realizar tantas órdenes de compra y venta como desee, ingresando precios con un máximo de dos decimales.
+    </p>
+
+    <h3><strong>Valor de recompra de los activos</strong></h3>
+    <p>
+        Al finalizar cada período de negociación, el experimentador recomprará sus activos según su valor de recompra,
+        que se calcula como la suma de los productos de los tipos de monedas multiplicados por sus valores.
+    </p>
+</body>
+</html>
