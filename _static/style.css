@@ -349,18 +349,6 @@ button {
 
 /*  */
 
-
-#bidsTable tbody,
-#asksTable tbody,
-#newsTable,
-#tradesTable {
-    display: block;
-    max-height: 100px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-
 .div_box {
     margin-bottom: 35px;
     text-align: center;

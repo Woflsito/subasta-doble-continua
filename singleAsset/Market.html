@@ -10,6 +10,7 @@
 
 {{ block global_styles }}
         <link rel="stylesheet" href="{{ static 'style.css' }}">
+        <link rel="stylesheet" href="{{ static 'style_market.css' }}">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 {{ endblock }}
@@ -64,9 +65,17 @@ Mercado de subasta doble continua
         <div class="limit_bid col-sm div_box">
             <h4>Realizar oferta de compra (bid offer)</h4>
             <table style="margin: auto">
-                <tr><th>Precio (comprar a)</th><td><input type="number" class="form-control small-numbers" inputmode="numeric" id="limitBidPrice" min="0"></td></tr>
-                <tr><th>Volumen</th><td><input type="number" class="form-control small-numbers" inputmode="numeric" id="limitBidVolume" min="1"></td></tr>
-            </table>
+                <tr>
+                    <th>Precio (comprar a)</th>
+                    <td>
+                        <input type="number" class="form-control custom-price-input" inputmode="numeric" id="limitBidPrice" min="0">
+                    </td></tr>
+                <tr>
+                    <th>Volumen</th>
+                    <td>  
+                        <input type="number" class="form-control custom-volume-input" inputmode="numeric" id="limitBidVolume" min="1">
+                    </td>
+                </table>
             <button type="button" onclick="sendOffer(is_bid=1)" id="bidOffer" class="otree-btn-next btn btn-primary">Realizar oferta de compra (bid offer)</button>
             <div class="otree-form-errors alert alert-danger" id="errorBidOffer" style="display: none; text-align: left; margin-top: 35px">
                 <p>Por favor, proporciona toda la información necesaria para realizar una oferta de compra (bid offer)</p>
@@ -80,8 +89,17 @@ Mercado de subasta doble continua
         <div class="limit_ask col-sm div_box">
             <h4>Realizar oferta de venta (ask offer)</h4>
             <table style="margin: auto">
-                <tr><th>Precio (vender a)</th><td><input type="number" class="form-control small-numbers" inputmode="numeric" id="limitAskPrice" min="0"></td></tr>
-                <tr><th>Volumen</th><td><input type="number" class="form-control small-numbers" inputmode="numeric" id="limitAskVolume" min="1"></td></tr>
+                <tr>
+                    <th>Precio (vender a)</th>
+                    <td>
+                        <input type="number" class="form-control custom-price-input" inputmode="numeric" id="limitAskPrice" min="0">
+                    </td></tr>
+                <tr>
+                    <th>Volumen</th>
+                    <td>
+                        <input type="number" class="form-control custom-volume-input" inputmode="numeric" id="limitAskVolume" min="1">
+                    </td>
+                </tr>
             </table>
             <button type="button" onclick="sendOffer(is_bid=0)" id="SendOffer" class="otree-btn-next btn btn-primary">Place ask offer</button>
             <div class="otree-form-errors alert alert-danger" id="errorAskOffer" style="display: none; text-align: left; margin-top: 35px">
@@ -99,9 +117,20 @@ Mercado de subasta doble continua
         <div class="market_bid col-sm div_box">
             <h4>Ofertas de compra (Bids)</h4>
             <p style="text-align: center">Por favor, selecciona la orden límite y especifica el volumen que deseas vender aquí</p>
-            <input type="number" class="form-control small-numbers" inputmode="numeric" id="transactionBidVolume" min="1" style="display: inline-block;">
+            <input type="number" class="form-control market-table-input" inputmode="numeric" id="transactionBidVolume" min="1" style="display: inline-block;">
             <button type="button" onclick="sendAcc(is_bid=1)" id="bidAccept" class="otree-btn-next btn btn-primary">Aceptar venta</button>
-            <table id="bidsTable" class="table_box"><thead><tr><th>Volumen</th>  <th>Precio</th></tr></thead><tbody></tbody></table>
+            <div>
+                <table id="bidsTable" class="table_box">
+                    <thead>
+                        <tr>
+                            <th scope="col">Volumen</th>
+                            <th scope="col">Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="elBidsTableBody" class="table-bids"></tbody>
+                </table>
+            </div>
+                   
             <button type="button" onclick="cancelLimit(is_bid=1)" id="cancelBidLimit" class="btn btn-outline-danger">Retirar orden límite propia</button>
             <div class="otree-form-errors alert alert-danger" id="errorBidMarket" style="display: none; text-align: left; margin-top: 35px;">
                 <p>Por favor, proporciona toda la información necesaria para aceptar una oferta de compra (bid offer)</p>
@@ -121,9 +150,17 @@ Mercado de subasta doble continua
         <div class="market_ask col-sm div_box">
             <h4>Ofertas de venta (Asks)</h4>
             <p style="text-align: center">Por favor, selecciona la orden límite y especifica el volumen que deseas comprar aquí</p>
-            <input type="number" class="form-control small-numbers" inputmode="numeric" id="transactionAskVolume" min="1" style="display: inline-block">
+            <input type="number" class="form-control market-table-input" inputmode="numeric" id="transactionAskVolume" min="1" style="display: inline-block">
             <button type="button" onclick="sendAcc(is_bid=0)" id="askAccept" class="otree-btn-next btn btn-primary">Aceptar compra</button>
-            <table id="asksTable" class="table_box"><thead><tr><th>Volumen</th>  <th>Precio</th></tr></thead><tbody></tbody></table> <!--aca esta los botones del volumen de rojo-->
+            <table id="asksTable"class="table_box">
+                <thead>
+                    <tr>
+                        <th>Volumen</th> 
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                    <tbody></tbody id="elAsksTableBody">
+            </table> <!--aca esta los botones del volumen de rojo-->
             <button type="button" onclick="cancelLimit(is_bid=0)" id="cancelAskLimit" class="btn btn-outline-danger">Retirar orden límite propia</button>
             <div class="otree-form-errors alert alert-danger" id="errorAskMarket" style="display: none; text-align: left; margin-top: 35px">
                 <p>Por favor, proporciona toda la información necesaria para aceptar una oferta de venta</p>

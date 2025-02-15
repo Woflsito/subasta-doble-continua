@@ -3,7 +3,8 @@
 
     let elTradesTable = $('#tradesTable')
     let elAssetsHolding = $('#assetsHolding')
-    console.log("[DEBUG] before_elAssetsHolding:", elAssetsHolding);
+
+    
 
 
     function liveRecv(data) {
@@ -18,9 +19,9 @@
         elAssetsHolding.html(assetsHolding);
 
         // value describes the offerID and data-value the makerID
-        elBidsTableBody.html(bids.map(e => `<tr id='offerID${e[2]}' value=${e[2]} data-value=${e[3]} data-custom="1"><td value=${e[1]}>${e[1]} for </td><td value=${e[0]}>${cu(e[0])}</td></tr>`).join(''))
-        elAsksTableBody.html(asks.map(e => `<tr id='offerID${e[2]}' value=${e[2]} data-value=${e[3]} data-custom="0"><td value=${e[1]}>${e[1]} for </td><td value=${e[0]}>${cu(e[0])}</td></tr>`).join(''))
-        elTradesTable.html(trades.map(e => `<tr><td>${trade_desc(e[3])}&nbsp;</td><td> ${ e[1] } for&nbsp;</td><td> ${ cu(e[0]) } </td></tr>`).join(''))
+        elBidsTableBody.html(bids.map(e => `<tr id='offerID${e[2]}' value=${e[2]} data-value=${e[3]} data-custom="1"><td value=${e[1]}>${e[1]} por </td><td value=${e[0]}>${cu(e[0])}</td></tr>`).join(''))
+        elAsksTableBody.html(asks.map(e => `<tr id='offerID${e[2]}' value=${e[2]} data-value=${e[3]} data-custom="0"><td value=${e[1]}>${e[1]} por </td><td value=${e[0]}>${cu(e[0])}</td></tr>`).join(''))
+        elTradesTable.html(trades.map(e => `<tr><td>${trade_desc(e[3])}&nbsp;</td><td> ${ e[1] } por&nbsp;</td><td> ${ cu(e[0]) } </td></tr>`).join(''))
         elNewsTable.html(news.map(e => `<tr><td>${e[0]}</td></tr>`).join(''))
 
         // Select others' Bids and Asks after this update
@@ -64,6 +65,8 @@
             return
         }
         liveSend({'operationType': 'limit_order', 'isBid': is_bid, 'limitPrice': limitPrice, 'limitVolume': limitVolume})
+        // Ajustar la altura de la tabla después de enviar una oferta
+        setTimeout(updateTableHeight, 500);
     }
 
 

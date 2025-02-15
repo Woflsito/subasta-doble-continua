@@ -1,0 +1,46 @@
+.custom-volume-input,
+.custom-price-input {
+    width: 100%; /* Ocupar todo el ancho del <td> */
+    text-align: center; /* Centra el texto */
+    font-size: 16px; /* Hace el texto más visible */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+/* Errores */
+.error-message {
+    font-size: 14px;  /* Letra más compacta */
+    padding: 8px;  /* Menos padding */
+    margin-top: 10px;  /* Evita espacios grandes */
+    max-width: 400px; /* Limita el ancho */
+    display: none;  /* Oculto por defecto */
+}
+
+
+.market-table-input {
+    width: 100%; /* Ocupar todo el ancho del <td> */
+    text-align: center; /* Centra el texto */
+    font-size: 16px; /* Hace el texto más visible */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Tablas para interactuar y aceptar una oferta */
+
+#bidsTable tbody,
+#asksTable tbody,
+#newsTable,
+#tradesTable {
+    display: table-row-group; /* Restablece la estructura de la tabla */
+}
+
+/**/ 
+/* Permitir que solo el tbody haga scroll */
+
+
+
+
