@@ -43,8 +43,10 @@ Mercado de subasta doble continua
 
                 <p><strong>Dinero disponible:</strong> <span id="cashHolding" class="float-end money-positive">{{ player.cashHolding }}</span></p>
 
-                <p><strong>Posibles valores de dividendos:</strong> <span class="float-end">[{{ possible_dividends }}]</span></p>
+                <p><strong>Posibles valores de dividendos:</strong> <strong><span class="float-end">[{{ possible_dividends }}]</strong></span></p>
                 {{ else }} {{ endif }}
+                <p><strong>Probabilidades:</strong> <strong><span class="float-end">[{{ dividend_probabilities }}]</span></strong></p>
+
             </div>
         </div>
     </div>

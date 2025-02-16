@@ -7,6 +7,13 @@ let elNewsTable = $('#newsTable')
 
 let my_id = js_vars.id_in_group
 
+// 🔍 Obtener los valores de dividendos desde oTree
+let dividendValues = js_vars.dividend_values;
+
+// 📝 Insertar dividendos en la lista de HTML
+let dividendListElement = document.getElementById("dividendList");
+dividendListElement.innerHTML = dividendValues.map(value => `<li>${value}</li>`).join("");
+
 
 // Highlight selected limit order in the order book (whether to accept or to delete)
 $('#bidsTable, #asksTable').on('click', 'tbody tr', function (data) {

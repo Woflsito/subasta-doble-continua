@@ -1256,7 +1256,8 @@ class PreMarket(Page):
     def vars_for_template(player: Player):
         return dict(
             round=player.round_number - C.num_trial_rounds,
-            possible_dividends=", ".join(map(str, C.dividend_values))  # 🔹 Convertimos la lista a string aquí
+            possible_dividends=", ".join(map(str, C.dividend_values)),  # 🔹 Convertimos la lista a string aquí
+            dividend_probabilities=", ".join(map(str, C.probabilities)),  # 🔹 Convertimos la lista de probabilidades a string
 
         )
 
@@ -1326,12 +1327,15 @@ class Market(Page):
             dividendsHolding=player.dividendsHolding ,
             before_dividend= player.before_dividend,
             after_dividend=player.after_dividend,
-            profitFromDividends= player.profitFromDividends,)
+            profitFromDividends= player.profitFromDividends,
+            
+            )
 
     @staticmethod
     def vars_for_template(player: Player):
         return dict(
-            possible_dividends=", ".join(map(str, C.dividend_values))  # 🔹 Convertimos la lista a string aquí
+            possible_dividends=", ".join(map(str, C.dividend_values)),  # 🔹 Convertimos la lista a string aquí
+            dividend_probabilities=", ".join(map(str, C.probabilities)),  # 🔹 Convertimos la lista de probabilidades a string
 
         )
     @staticmethod
