@@ -11,7 +11,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'sCDA'
     PLAYERS_PER_GROUP = None
     num_trial_rounds = 2
-    NUM_ROUNDS = 15  ## incl. trial periods
+    NUM_ROUNDS = 4  ## incl. trial periods
     base_payment = cu(10)
     multiplier = 70
     min_payment_in_round = cu(0)
@@ -331,10 +331,6 @@ def initiate_player(player: Player):
         player.dividendsHolding = initial_dividend
 
 
-        # Inicializar variables relacionadas con dividendos
-        player.profitFromDividends = 0
-        player.before_dividend = player.cashHolding
-        player.after_dividend = player.cashHolding
 
 
 
@@ -470,20 +466,20 @@ def calc_round_profit(player: Player):
     group = player.group
     """ Calcula la ganancia del jugador en la ronda actual. """
     # Dividendos acumulados
-    initial_endowment = player.initialCash 
-    end_endowment = player.cashHolding 
+    initial_endowment = player.initialCash
+    round_endowment = player.before_dividend 
+    end_endowment = player.after_dividend 
     player.tradingProfit = end_endowment - initial_endowment
 
     # Guardamos el resultado en el jugador
     player.tradingProfit = round(player.tradingProfit, C.decimals)
 
-    # Cambio porcentual en la riqueza
     
     if not player.isObserver and player.isParticipating and initial_endowment != 0:
-        player.wealthChange = (end_endowment - initial_endowment) / initial_endowment
+        player.wealthChange = (end_endowment - round_endowment) *100 / round_endowment
     else:
        player.wealthChange = 0
-    player.payoff = max(C.base_payment + C.multiplier * player.wealthChange, C.min_payment_in_round)
+    player.payoff = max(C.base_payment + C.multiplier * player.wealthChange/100, C.min_payment_in_round)
 
     #print(f"[CALC PROFIT] Jugador {player.id_in_group} - Ronda {group.round_number}")
     #print(f"  - Inicial: Cash={player.initialCash}, Activos={player.initialAssets}, Valor Activos={player.assetValue}")
@@ -494,7 +490,6 @@ def calc_round_profit(player: Player):
 
 def calc_final_profit(player: Player):
     # Aplicar dividendos antes de calcular beneficios
-    apply_dividends(player)
 
     """ Calcula el pago final del jugador basado en una ronda aleatoria. """
 
@@ -1079,19 +1074,6 @@ def transaction(player: Player, data):
         bestBidAfter=best_bid_after,
     )
 
-def apply_dividends(player: Player):
-    # Registrar antes del pago de dividendos
-    before_dividend = player.cashHolding
-
-    # Calcular la ganancia por dividendos
-    profit = player.dividendsHolding * player.dividendValue
-
-    # Actualizar cashHolding
-    after_dividend = before_dividend + profit
-    player.cashHolding = after_dividend
-
-    # Registrar la ganancia de dividendos
-    player.profitFromDividends = profit
 
 def assign_dividend_value(group: Group):
     for p in group.get_players():
@@ -1364,9 +1346,6 @@ class Market(Page):
         else:
             return group.marketStartTime + group.marketTime - time.time()
     
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        apply_dividends(player)  # 🔥 Se aplica justo al final del mercado
 
 
 class ResultsWaitPage(WaitPage):
@@ -1385,7 +1364,7 @@ class ResultsWaitPage(WaitPage):
             p.profitFromDividends = p.dividendsHolding * p.dividendValue  # Calcular dividendos
             p.cashHolding += p.profitFromDividends  # Sumar dividendos a su efectivo
             p.after_dividend = p.cashHolding  # Guardar el dinero después de recibir dividendos
-            calc_round_profit(p)  # Calcula la ganancia de cada jugador      
+            calc_round_profit(player=p)
         # Solo calcular el pago final si es la última ronda
         if group.round_number == C.NUM_ROUNDS:
             for p in players:
@@ -1448,8 +1427,8 @@ class FinalResults(Page):
     def vars_for_template(player: Player):
         return dict(
             payoff=cu(round(player.finalPayoff, 0)),
-            periodPayoff=[[p.round_number - C.num_trial_rounds, round(p.payoff, C.decimals), round(p.tradingProfit, C.decimals), round(p.wealthChange * 100, C.decimals)] for p in player.in_all_rounds() if p.round_number > C.num_trial_rounds],
+            periodPayoff=[[p.round_number - C.num_trial_rounds, round(p.payoff, C.decimals), round(p.tradingProfit, C.decimals), round(p.wealthChange, C.decimals)] for p in player.in_all_rounds() if p.round_number > C.num_trial_rounds],
         )
 
 
-page_sequence = [Instructions, WaitToStart, EndOfTrialRounds, PreMarket, WaitingMarket, Market, ResultsWaitPage, Results, FinalResults, ResultsWaitPage]
+page_sequence = [Instructions, WaitToStart, EndOfTrialRounds, PreMarket, WaitingMarket, Market, ResultsWaitPage, Results, FinalResults]
