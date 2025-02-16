@@ -13,12 +13,12 @@ class C(BaseConstants):
     num_trial_rounds = 2
     NUM_ROUNDS = 4  ## incl. trial periods
     base_payment = cu(10)
-    multiplier = 70
+    multiplier = 120
     min_payment_in_round = cu(0)
     min_payment = cu(4)
-    FV = 20
-    num_assets = 15
-    num_dividends = 15
+    FV = 40
+    num_assets = 20
+    num_dividends = 20
     decimals = 2
     marketTime = 210  # needed to initialize variables but exchanged by session_config
 
@@ -235,7 +235,6 @@ class Player(BasePlayer):
 
     # Dividend Management
     initialDividend = models.FloatField(initial=0) 
-    dividendByAsset = models.FloatField(initial=0)  # ✅
 
         # Nuevos
     dividendsHolding = models.IntegerField(initial=0)  # Mismo número de activos
@@ -548,9 +547,9 @@ def custom_export(players):
 
 def custom_export(players):
     # Exportar dividendos por jugador y ronda
-    yield ['TableName', 'sessionID', 'playerID', 'group', 'Period', 'initialDividend', 'dividendsHolding', 'dividendByAsset']
+    yield ['TableName', 'sessionID', 'playerID', 'group', 'Period', 'initialDividend', 'dividendsHolding',]
     for p in players:
-        yield ['Dividends', p.group.session.code, p.id_in_group, p.group.id_in_subsession, p.round_number, p.initialDividend, p.dividendsHolding, p.dividendByAsset]
+        yield ['Dividends', p.group.session.code, p.id_in_group, p.group.id_in_subsession, p.round_number, p.initialDividend, p.dividendsHolding]
 
 
 class Limit(ExtraModel):
@@ -1087,23 +1086,20 @@ def store_group_transactions(group: Group):
     # 🔥 Obtener todas las transacciones de la ronda actual
     new_transactions = Transaction.filter(group=group, Period=group.round_number)
 
-    #print(f"\n📊 [CHECK TRANSACTION] Transacciones en `Transaction` antes de guardar en `GroupTransactions`:")
-    #if not new_transactions:
-    #    print("  ⚠️ No hay transacciones nuevas para almacenar.")
-
-    #for tx in new_transactions:
-    #    print(f"  - Ronda {tx.Period}, ID: {tx.transactionID}, Precio: {tx.price}, "
-    #          f"Volumen: {tx.transactionVolume}, Vendedor: {tx.sellerID}, Comprador: {tx.buyerID}, Tiempo: {tx.transactionTime}")
+    # 🔍 Obtener el tiempo acumulado de transacciones previas (si existe)
+    prev_time = group.session.vars.get('total_transaction_time', 0)
 
     # 🔍 Obtener IDs de transacciones ya almacenadas en `GroupTransactions`
     existing_tx_ids = {tx.transactionID for tx in GroupTransactions.filter(group=group)}
 
- # 📌 Recuperar transacciones previas almacenadas en session.vars
+    # 📌 Recuperar transacciones previas almacenadas en session.vars
     session_transactions = group.session.vars.get('session_transactions', [])
 
     # 🔄 Guardar solo transacciones nuevas en `GroupTransactions` y `session.vars`
     for tx in new_transactions:
         if tx.transactionID not in existing_tx_ids:
+            total_time = prev_time + tx.transactionTime
+
             # ✅ Guardar en `GroupTransactions`
             GroupTransactions.create(
                 group=group,
@@ -1124,7 +1120,7 @@ def store_group_transactions(group: Group):
                 "volume": tx.transactionVolume,
                 "sellerID": tx.sellerID,
                 "buyerID": tx.buyerID,
-                "time": tx.transactionTime
+                "time": total_time  # 🔥 Ahora es el tiempo total acumulado
             })
 
     # 🛠️ Actualizar `session.vars` con todas las transacciones acumuladas

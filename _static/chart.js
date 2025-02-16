@@ -1,19 +1,19 @@
-let marketTime = js_vars.marketTime*15
+let marketTime = js_vars.marketTime*13
 
 function redrawChart(series) {
         Highcharts.chart('highchart', {
 
             title: {
-                text: 'Trade history'
+                text: 'Historial de Precio'
             },
             yAxis: {
                 title: {
-                    text: 'Price'
+                    text: 'Precio'
                 }
             },
             xAxis: {
                 title: {
-                    text: 'Time (seconds)'
+                    text: 'Tiempo (segundos)'
                 },
                 min: 0,
                 max: marketTime ,
